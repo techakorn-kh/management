@@ -1,0 +1,80 @@
+<%- include('../../layout/header.ejs'); %>
+
+<script>
+    const onRequired = () => {
+        let count = 0;
+
+        if ($('#is_username').val()) {
+            $('#is_username').removeClass('is-invalid').prop('required', false);
+        } else {
+            $('#is_username').addClass('is-invalid').prop('required', true);
+            count += 1;
+        }
+
+        if ($('#is_password').val()) {
+            $('#is_password').removeClass('is-invalid').prop('required', false);
+        } else {
+            $('#is_password').addClass('is-invalid').prop('required', true);
+            count += 1;
+        }
+
+        return (count === 0 ? true : false);
+    };
+
+    const onSignIn = async () => {
+        if(onRequired()) {
+            const is_username = $('#is_username').val(), is_password = $('#is_password').val();
+            loader(true);
+     
+            await axios.post('/sign-in', {
+                is_username,
+                is_password
+            }).then(function (response) {
+                console.log(response.data);
+                alertMessage(response.data);
+            }).catch(function (err) {
+                console.error(err.response.data);
+                alertMessage(err.response.data);
+            }); 
+        }
+    };
+</script>
+
+<main class="d-flex align-items-center py-4 bg-body-tertiary h-100">
+    <div class="form-signin w-100 m-auto">
+        <div class="col-12 text-center">
+            <img src="/images/LOGO-Bigwork.png" width="150">
+        </div>
+        
+        <div class="col-12 text-center py-3">
+            <label class="fw-semibold">Please sign in</label>
+            <p class="fs-6 py-0 my-0">version 25.0225.0</p>
+        </div>
+        
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control text-uppercase" id="is_username" autocomplete="off" autofocus value="techakorn" maxlength="20"> <!-- techakorn -->
+            <label for="is_username">Username</label>
+            <div class="invalid-feedback">
+                Please enter the username.
+            </div>
+        </div>
+    
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="is_password" autocomplete="off" autofocus value="Ch@mp**2239"> <!-- Ch@mp**2239 -->
+            <label for="is_password">Password</label>
+            <div class="invalid-feedback">
+                Please enter the password.
+            </div>
+        </div>
+    
+        <button class="btn btn-primary w-100" type="button" onclick="onSignIn()">
+            <i class="fa-solid fa-right-to-bracket"></i> Sign in
+        </button>
+       
+        <div class="col-12 text-center py-3">
+            <label class="fs-6">Copyright © 2025 Bigworkthailand.com</label>
+        </div>
+    </div>
+</main>
+
+<%- include('../../layout/footer.ejs'); %>
