@@ -1,4 +1,5 @@
 const { line100LineChannels } = require('../../../models/index');
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
     index: async(req, res) => {
@@ -40,15 +41,29 @@ module.exports = {
                     customer_code,
                     channel_id
                 },
-                defaults: req.body
+                defaults: {
+                    ...req.body,
+                    system_uuid: uuidv4()
+                }
             }).then(([value, created]) => {
                 if (created) {
-                    
+                    return res.status(200).json({ 
+                        code: 200, 
+                        status: 'success', 
+                        message: 'Data saved successfully',
+                        data: {
+                            ...value.toJSON()
+                        }
+                    });
                 } else {
-                    
+                    return res.status(404).json({ 
+                        code: 404, 
+                        status: 'error', 
+                        message: 'Duplicate data found in the system. Unable to create a new record.'
+                    });
                 }
             }).catch(async (err) => {
-                throw await handleErrorSQL(res, err); 
+                throw err; 
             });
             
         } catch (err) {
@@ -74,8 +89,31 @@ module.exports = {
     },
     update: async(req, res) => {
         try {
-           
-            console.log(req.body);
+            const { system_uuid } = req.params;
+
+            await line100LineChannels.update({
+                ...req.body
+            }, {
+                where: {
+                    system_uuid
+                }
+            }).then(([updated]) => {
+                if (updated) {
+                    return res.status(200).json({ 
+                        code: 200, 
+                        status: 'success', 
+                        message: 'Data has been updated successfully.'
+                    });
+                } else {
+                    return res.status(404).json({ 
+                        code: 404, 
+                        status: 'error', 
+                        message: 'No data found for the requested update.'
+                    });
+                }
+            }).catch(async (err) => {
+                throw err; 
+            });
         } catch (err) {
             console.error(err);
             return res.status(500).json({
@@ -87,8 +125,29 @@ module.exports = {
     },
     destroy: async(req, res) => {
         try {
-           
-            console.log(req.body);
+            const { system_uuid } = req.params;
+
+            await line100LineChannels.destroy({
+                where: {
+                    system_uuid
+                }
+            }).then((deleted) => {
+                if (deleted) {
+                    return res.status(200).json({ 
+                        code: 200, 
+                        status: 'success', 
+                        message: 'Data has been successfully deleted.'
+                    });
+                } else {
+                    return res.status(404).json({ 
+                        code: 404, 
+                        status: 'error', 
+                        message: 'Deletion failed. The record could not be removed.'
+                    });
+                }
+            }).catch(async (err) => {
+                throw err; 
+            });
         } catch (err) {
             console.error(err);
             return res.status(500).json({

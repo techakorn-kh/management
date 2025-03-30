@@ -9,6 +9,7 @@ const port = process.env.PORT || config.APP_PORT;
 
 require('./models/index');
 
+const apiRoutes = require('./routes/api');
 const webRoutes = require('./routes/web');
 
 app.use(cors());
@@ -23,6 +24,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/api', apiRoutes); //Service API
 
 app.use('/', webRoutes); //Application
 

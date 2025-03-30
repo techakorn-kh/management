@@ -144,11 +144,16 @@ const line100LineChannels = sequelize.define('line_100_line_channels', {
         type: DataTypes.DATEONLY,
         allowNull: true
     },
+    "system_uuid": {
+        type: DataTypes.UUID(),
+        primaryKey: true,
+        allowNull: false
+    },
 }, { 
     indexes: [
         {
             unique: false,
-            fields: ['customer_code','channel_id']
+            fields: ['customer_code','channel_id','system_uuid']
         }
     ]
 });
