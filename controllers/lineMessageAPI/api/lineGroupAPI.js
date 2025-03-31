@@ -9,6 +9,9 @@ module.exports = {
             const { channel_id } = req.params;
 
             const result = await line101LineGroups.findAll({
+                where: { 
+                    channel_id 
+                },
                 raw: true
             }).catch(async (err) => {
                 throw err; 
