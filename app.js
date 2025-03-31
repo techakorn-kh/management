@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api', apiRoutes); //Service API
+app.use('/api', apiRoutes); //Service API 
 
 app.use('/', webRoutes); //Application
 
