@@ -22,6 +22,6 @@ router.use('/sign-in', signInRoute);
 
 router.get('/menu', loggedIn, menuController.index);
 
-router.use('/line-message-api', lineMessageApiRoute);
+router.use('/line-message-api', loggedIn, lineMessageApiRoute);
 
 module.exports = router;

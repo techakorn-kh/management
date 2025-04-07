@@ -95,7 +95,7 @@ const line100LineChannels = sequelize.define('line_100_line_channels', {
         }
     },
     "channel_access_token": {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(250),
         allowNull: false,
         validate: {
             notEmpty: {
@@ -105,8 +105,8 @@ const line100LineChannels = sequelize.define('line_100_line_channels', {
                 msg: 'Channel secret',
             },
             isEvent(value) {
-                if(value.length > 255) {
-                    throw 'จำนวนข้อความมีมากกว่า 255 ตัวอักษร';
+                if(value.length > 250) {
+                    throw 'จำนวนข้อความมีมากกว่า 250 ตัวอักษร';
                 }
             }
         }

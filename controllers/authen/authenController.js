@@ -61,7 +61,7 @@ module.exports = {
                 code: 200, 
                 status: 'success', 
                 message: 'Logged in Redirect', 
-                backward: '/menu',
+                backward: '/dashboard',
                 data: {
                     user_id: result?.system_user_uuid,
                     username: result?.username,

@@ -9,12 +9,12 @@ const line102LineUrlApi = sequelize.define('line_102_line_url_api', {
         autoIncrement: true
     },
     "url": {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(250),
         primaryKey: true,
         allowNull: false
     },
     "url_desc": {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(250),
         primaryKey: true,
         allowNull: false
     },

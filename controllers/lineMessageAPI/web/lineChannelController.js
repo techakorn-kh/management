@@ -4,9 +4,16 @@ const { v4: uuidv4 } = require('uuid');
 module.exports = {
     index: async(req, res) => {
         try {
+            const result = await line100LineChannels.findAll({
+                order: [['channel_id', 'ASC']],
+                raw: true,
+            }).catch((err) => {
+                throw err;
+            });
            
             return res.render('pages/lineMessageAPI/lineChannel/index', { 
-                title: 'Line Channel'
+                title: 'Line Channels',
+                arr: result
             });
         } catch (err) {
             console.error(err);
@@ -21,7 +28,7 @@ module.exports = {
         try {
            
             return res.render('pages/lineMessageAPI/lineChannel/create', { 
-                title: 'Line Channel'
+                title: 'Line Channels'
             });
         } catch (err) {
             console.error(err);

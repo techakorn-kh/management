@@ -29,12 +29,15 @@ app.use('/api', apiRoutes); //Service API
 
 app.use('/', webRoutes); //Application
 
-app.use(function(req, res){
-    return res.status(500).json({
-        code: 500, 
-        status: 'error', 
-        message: 'Internal Server Error'
+app.use(function(req, res) {
+    return res.render('error', { 
+        title: 'Error Page'
     });
+    // return res.status(500).json({
+    //     code: 500, 
+    //     status: 'error', 
+    //     message: 'Internal Server Error'
+    // });
 });
 
 app.listen(port, () => {

@@ -15,6 +15,15 @@ const config = {
     DB_TYPE: process.env.DB_TYPE,
     DB_CHARSET: process.env.DB_CHARSET,
     DB_TIMEZONE: process.env.DB_TIMEZONE,
+
+    NODE_ENV: process.env.NODE_ENV || 'DEVELOPMENT',
+    WEBHOOK_URL: process.env.WEBHOOK_URL || null,
+}
+
+if (config?.NODE_ENV === 'DEVELOPMENT') {
+    config.WEBHOOK_URL = 'http://localhost:3000/api/webhook/webhook-event/{{channel_id}}';
+} else {
+    config.WEBHOOK_URL = 'https://management.bigworkthailand.com/api/webhook/webhook-event/{{channel_id}}';
 }
 
 module.exports = config;

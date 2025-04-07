@@ -4,8 +4,85 @@
    
 </script>
 
-<main class="container-fluid">
-    
-</main>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <h3><%= title %></h3>
+
+        </div>
+    </div>
+
+    <div class="row justify-content-center py-2">
+        <div class="col-6 text-center">
+            <div class="row justify-content-center g-2">
+                <div class="col-6">
+                    <input type="search" class="form-control" id="exampleFormControlInput1" placeholder="Search..." autofocus>
+                </div>
+                <div class="col-1">
+                    <button type="button" class="btn btn-primary">
+                        <i class='bx bx-plus' ></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center py-3">
+        <table class="table align-middle">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">
+                        <span>No.</span>
+                    </th>
+                    <th scope="col">
+                        <label for="exampleDataList" class="form-label">Customer Code</label>
+                        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                        <datalist id="datalistOptions">
+                            <% for(let i = 0; i < 15; i++) { %>
+                                <option value="<%= arr[i]?.customer_code || '' %>">
+                            <% } %>
+                        </datalist>
+                    </th>
+                    <th scope="col">
+                        <span>Channel ID</span>
+                    </th>
+                    <th scope="col">
+                        <span>Channel Name</span>
+                    </th>
+                    <th scope="col">
+                        <span>Channel Description</span>
+                    </th>
+                    <th scope="col">
+                        <span>Webhook</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <% for(let i = 0; i < 15; i++) { %>
+                    <tr class="align-top">
+                        <td class="text-center">
+                            <span><%= i+1 %></span>
+                        </td>
+                        <td class="text-center">
+                            <span><%= arr[i]?.customer_code || '' %></span>
+                        </td>
+                        <td class="text-center">
+                            <span><%= arr[i]?.channel_id || '' %></span>
+                        </td>
+                        <td>
+                            <span><%= arr[i]?.channel_name || '' %></span>
+                        </td>
+                        <td>
+                            <span><%= arr[i]?.channel_desc || '' %></span>
+                        </td>
+                        <td>
+                            <span><%= arr[i]?.channel_desc || '' %></span>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <%- include('../../../layout/footer.ejs'); %>

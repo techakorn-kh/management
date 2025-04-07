@@ -31,9 +31,22 @@ const line101LineGroups = sequelize.define('line_101_line_groups', {
         }
     },
     "group_id": {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(250),
         primaryKey: true,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: {
+                msg: 'Group ID',
+            },
+            notNull: {
+                msg: 'Group ID',
+            },
+            isEvent(value) {
+                if(value.length > 250) {
+                    throw 'จำนวนข้อความมีมากกว่า 250 ตัวอักษร';
+                }
+            }
+        }
     },
     "group_name": {
         type: DataTypes.STRING,
