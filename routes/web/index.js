@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     if(!loggedIn) {
         return res.redirect('/sign-in')
     } else {
-        return res.redirect('/menu')
+        return res.redirect('/dashboard')
     }
 });
 

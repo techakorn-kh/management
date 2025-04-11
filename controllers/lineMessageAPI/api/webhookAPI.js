@@ -125,5 +125,34 @@ module.exports = {
             console.error(err);
             return res.status(404).send(err);
         }
+    },
+    members: async(req, res) => {
+        try {
+            const { channel_id, groupId } = req.params;
+
+            const channel = await line100LineChannels.findOne({
+                attributes: ['channel_access_token'],
+                where: {
+                    channel_id,
+                    is_active: true
+                },
+                raw: true
+            }).catch((err)=>{
+                throw err;
+            });
+
+            const result = await groupMembersIds({
+                channel_id, 
+                channel_access_token: channel?.channel_access_token, 
+                groupId
+            }).catch((err)=>{
+                throw err;
+            });
+
+            return res.json(result);
+        } catch (err) {
+            console.error(err);
+            return res.status(404).send(err);
+        }
     }
 }
