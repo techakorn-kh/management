@@ -12,9 +12,9 @@ router.get('/', (req, res) => {
     const { loggedIn } = req.session;
 
     if(!loggedIn) {
-        return res.redirect('/sign-in')
+        return res.redirect('/sign-in');
     } else {
-        return res.redirect('/dashboard')
+        return res.redirect('/menu');
     }
 });
 
@@ -22,6 +22,6 @@ router.use('/sign-in', signInRoute);
 
 router.get('/menu', loggedIn, menuController.index);
 
-router.use('/line-message-api', loggedIn, lineMessageApiRoute);
+router.use('/line-message-api', lineMessageApiRoute);
 
 module.exports = router;

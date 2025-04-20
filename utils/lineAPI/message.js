@@ -53,6 +53,7 @@ module.exports = {
             throw err;
         }
     }, 
+    //ตรวจสอบจำนวนข้อความที่สามารถส่งได้
     messageQuota: async(params) => {
         try {
             const { channel_id, channel_access_token } = params;
@@ -67,7 +68,7 @@ module.exports = {
                 throw err;
             });
 
-            await axios.get(`${api?.url}`, {
+            const result = await axios.get(`${api?.url}`, {
                 headers: { 
                     Authorization: `Bearer ${channel_access_token}`
                 }
@@ -83,16 +84,19 @@ module.exports = {
                 }).catch((err) => {
                     throw err;
                 });
+
+                return value;
             }).catch((err) => {
                 console.error(err);
                 throw err;
             });
-    
-            return params;
+
+            return result;
         } catch (err) {
             throw err;
         }
     }, 
+    //ตรวจสอบจำนวนข้อความที่มีการส่งไปแล้ว
     messageQuotaConsumption: async(params) => {
         try {
             const { channel_id, channel_access_token } = params;
@@ -107,7 +111,7 @@ module.exports = {
                 throw err;
             });
 
-            await axios.get(`${api?.url}`, {
+            const result = await axios.get(`${api?.url}`, {
                 headers: { 
                     Authorization: `Bearer ${channel_access_token}`
                 }
@@ -123,12 +127,14 @@ module.exports = {
                 }).catch((err) => {
                     throw err;
                 });
+
+                return totalUsage;
             }).catch((err) => {
                 console.error(err);
                 throw err;
             });
-    
-            return params;
+
+            return result;
         } catch (err) {
             throw err;
         }
