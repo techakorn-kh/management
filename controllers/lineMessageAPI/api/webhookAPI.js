@@ -18,7 +18,7 @@ module.exports = {
             const { channel_id } = req.params, { events } = req.body;
 
             const result = await line100LineChannels.findOne({
-                attributes: ['channel_id', 'channel_access_token'],
+                attributes: ['channel_id', 'channel_access_token','system_uuid'],
                 where: {
                     channel_id,
                     is_active: true
